@@ -29,7 +29,7 @@
     .coupon-box { margin:20px 0; padding:11px; border:2px dashed var(--primary); border-radius:10px; background:#000; cursor:pointer; transition:background .2s,transform .2s; }
     .coupon-box:hover,.coupon-box:focus-visible { background:#111827; transform:translateY(-2px); outline:none; }
     .coupon-text { color:var(--primary); font-family:ui-monospace,SFMono-Regular,monospace; font-size:1.2rem; font-weight:700; }
-    .btn { display:block; margin-top:15px; padding:17px 20px; border-radius:12px; color:#001018; background:var(--primary); font-size:1.05rem; font-weight:800; text-decoration:none; transition:transform .2s,box-shadow .2s; }
+    .btn { display:block; margin-top:15px; padding:17px 20px; border:0; border-radius:12px; color:#001018; background:var(--primary); font:inherit; font-size:1.05rem; font-weight:800; text-decoration:none; cursor:pointer; transition:transform .2s,box-shadow .2s; }
     .btn:hover,.btn:focus-visible { transform:translateY(-3px); box-shadow:0 10px 20px rgba(56,189,248,.4); }
     .secure-note { margin:15px 0 0; color:var(--muted); font-size:.8rem; }
     .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; width:min(1100px,90%); margin:0 auto 50px; }
@@ -37,6 +37,11 @@
     .f-item i { margin-bottom:15px; color:var(--primary); font-size:2rem; }
     .f-item h3 { margin:0 0 8px; }
     .f-item p { margin:0; color:var(--muted); }
+    .joke-section { width:min(900px,90%); margin:0 auto 60px; padding:clamp(24px,5vw,42px); border:1px solid rgba(56,189,248,.3); border-radius:24px; background:linear-gradient(145deg,#172554,#1e293b); text-align:center; }
+    .joke-section h2 { margin:0 0 8px; color:var(--primary); }
+    .joke-section > p { color:var(--muted); }
+    .joke-card { min-height:110px; display:flex; align-items:center; justify-content:center; margin:24px auto; padding:24px; border-radius:16px; background:rgba(15,23,42,.75); font-size:clamp(1.05rem,2.5vw,1.35rem); }
+    #joke-status { min-height:1.5em; margin:0; color:var(--muted); font-size:.85rem; }
     footer { padding:40px 20px; color:var(--muted); font-size:.85rem; text-align:center; }
     #copy-status { min-height:1.25em; margin:8px 0 0; color:var(--primary); font-size:.8rem; }
   </style>
@@ -55,7 +60,6 @@
       <i class="fas fa-trophy" aria-hidden="true" style="font-size:3rem;color:var(--gold);margin-bottom:10px"></i>
       <h2 id="offer-title">Lifetime Membership</h2>
       <p>Enjoy ad-free entertainment and 4K UHD streaming across your devices.</p>
-
       <div class="buy-box">
         <div class="old-price">₹1,499</div>
         <div class="price">₹499</div>
@@ -76,21 +80,29 @@
       <article class="f-item"><i class="fas fa-bolt" aria-hidden="true"></i><h3>4K UHD Streaming</h3><p>Enjoy cinema-quality visuals on supported devices and content.</p></article>
       <article class="f-item"><i class="fas fa-ad" aria-hidden="true"></i><h3>Zero Ads</h3><p>Stay focused on your entertainment without interruptions.</p></article>
     </section>
+
+    <section class="joke-section" aria-labelledby="joke-title">
+      <h2 id="joke-title"><i class="fas fa-laugh-beam" aria-hidden="true"></i> Random Joke Generator</h2>
+      <p>Need a quick laugh? Fetch a safe joke from an external API.</p>
+      <div class="joke-card" id="joke" aria-live="polite">Click the button to get a joke.</div>
+      <p id="joke-status" role="status"></p>
+      <button class="btn" type="button" id="joke-button">Tell Me a Joke</button>
+    </section>
   </main>
 
   <footer>&copy; 2026 NetMirro Digital. All rights reserved.<br>Terms and conditions apply.</footer>
 
   <script>
     const coupon = document.querySelector('#coupon');
-    const status = document.querySelector('#copy-status');
+    const copyStatus = document.querySelector('#copy-status');
     const code = 'LUCKY100';
 
     async function copyCoupon() {
       try {
         await navigator.clipboard.writeText(code);
-        status.textContent = 'Coupon copied!';
+        copyStatus.textContent = 'Coupon copied!';
       } catch {
-        status.textContent = 'Copy failed — please select LUCKY100 manually.';
+        copyStatus.textContent = 'Copy failed — please select LUCKY100 manually.';
       }
     }
 
@@ -101,6 +113,35 @@
         copyCoupon();
       }
     });
+
+    const jokeElement = document.querySelector('#joke');
+    const jokeStatus = document.querySelector('#joke-status');
+    const jokeButton = document.querySelector('#joke-button');
+    const jokeApi = 'https://v2.jokeapi.dev/joke/Any?type=single&safe-mode';
+
+    async function getRandomJoke() {
+      jokeButton.disabled = true;
+      jokeButton.textContent = 'Loading...';
+      jokeStatus.textContent = '';
+      jokeElement.textContent = 'Finding a good one...';
+
+      try {
+        const response = await fetch(jokeApi, { headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
+        const data = await response.json();
+        if (data.error || !data.joke) throw new Error('The API returned an invalid joke.');
+        jokeElement.textContent = data.joke;
+      } catch (error) {
+        jokeElement.textContent = 'Why did the web developer go broke? Because they used up all their cache.';
+        jokeStatus.textContent = 'The joke service is temporarily unavailable, so here is a backup joke.';
+        console.error('Joke API error:', error);
+      } finally {
+        jokeButton.disabled = false;
+        jokeButton.textContent = 'Tell Me a Joke';
+      }
+    }
+
+    jokeButton.addEventListener('click', getRandomJoke);
   </script>
 </body>
 </html>
