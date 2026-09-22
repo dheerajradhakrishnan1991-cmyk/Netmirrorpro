@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Get NetMirro Pro lifetime access with ad-free 4K streaming.">
+  <title>NetMirro Pro | Lifetime Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root { --primary:#38bdf8; --gold:#facc15; --dark:#0f172a; --card:#1e293b; --muted:#cbd5e1; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:#fff; background:var(--dark); font-family:Inter,system-ui,sans-serif; line-height:1.5; overflow-x:hidden; }
+    .promo-bar { padding:10px 16px; background:linear-gradient(90deg,#f59e0b,#ef4444); text-align:center; font-size:.9rem; font-weight:700; }
+    header { padding:clamp(64px,10vw,112px) 20px clamp(76px,11vw,130px); text-align:center; background:radial-gradient(circle at top,#1e293b,#0f172a 65%); }
+    .badge { display:inline-block; padding:8px 15px; border:1px solid rgba(56,189,248,.35); border-radius:999px; color:var(--primary); background:rgba(56,189,248,.12); font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+    h1 { max-width:800px; margin:20px auto 16px; font-size:clamp(2.35rem,7vw,4.25rem); line-height:1.08; }
+    h1 span { color:var(--gold); text-shadow:0 0 20px rgba(250,204,21,.4); }
+    header p { max-width:620px; margin:0 auto; color:var(--muted); font-size:1.05rem; }
+    .contest-card { width:min(92%,680px); margin:-52px auto 60px; padding:clamp(24px,5vw,42px); position:relative; border:2px solid var(--gold); border-radius:30px; background:linear-gradient(145deg,#1e293b,#0f172a); box-shadow:0 20px 50px rgba(0,0,0,.5); text-align:center; }
+    .contest-card h2 { margin:0; color:var(--gold); font-size:clamp(1.7rem,5vw,2.5rem); }
+    .contest-card > p { color:var(--muted); }
+    .buy-box { width:min(100%,410px); margin:28px auto 0; padding:26px; border:1px solid rgba(255,255,255,.1); border-radius:20px; background:var(--card); }
+    .price { margin:5px 0 12px; font-size:clamp(2.7rem,9vw,3.5rem); font-weight:800; }
+    .old-price { color:var(--muted); font-size:1.35rem; text-decoration:line-through; }
+    .coupon-box { margin:20px 0; padding:11px; border:2px dashed var(--primary); border-radius:10px; background:#000; cursor:pointer; transition:background .2s,transform .2s; }
+    .coupon-box:hover,.coupon-box:focus-visible { background:#111827; transform:translateY(-2px); outline:none; }
+    .coupon-text { color:var(--primary); font-family:ui-monospace,SFMono-Regular,monospace; font-size:1.2rem; font-weight:700; }
+    .btn { display:block; margin-top:15px; padding:17px 20px; border-radius:12px; color:#001018; background:var(--primary); font-size:1.05rem; font-weight:800; text-decoration:none; transition:transform .2s,box-shadow .2s; }
+    .btn:hover,.btn:focus-visible { transform:translateY(-3px); box-shadow:0 10px 20px rgba(56,189,248,.4); }
+    .secure-note { margin:15px 0 0; color:var(--muted); font-size:.8rem; }
+    .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; width:min(1100px,90%); margin:0 auto 50px; }
+    .f-item { padding:28px; border:1px solid rgba(255,255,255,.06); border-radius:15px; background:var(--card); }
+    .f-item i { margin-bottom:15px; color:var(--primary); font-size:2rem; }
+    .f-item h3 { margin:0 0 8px; }
+    .f-item p { margin:0; color:var(--muted); }
+    footer { padding:40px 20px; color:var(--muted); font-size:.85rem; text-align:center; }
+    #copy-status { min-height:1.25em; margin:8px 0 0; color:var(--primary); font-size:.8rem; }
+  </style>
+</head>
+<body>
+  <div class="promo-bar" role="status">🔥 LIMITED TIME: Get lifetime access to NetMirro Pro today! 🔥</div>
+
+  <header>
+    <span class="badge">Official Product Launch</span>
+    <h1>Unlock <span>NetMirro Pro</span><br>for a Lifetime.</h1>
+    <p>The media companion you'll actually enjoy. One-time payment, zero ads.</p>
+  </header>
+
+  <main>
+    <section class="contest-card" aria-labelledby="offer-title">
+      <i class="fas fa-trophy" aria-hidden="true" style="font-size:3rem;color:var(--gold);margin-bottom:10px"></i>
+      <h2 id="offer-title">Lifetime Membership</h2>
+      <p>Enjoy ad-free entertainment and 4K UHD streaming across your devices.</p>
+
+      <div class="buy-box">
+        <div class="old-price">₹1,499</div>
+        <div class="price">₹499</div>
+        <div class="coupon-box" id="coupon" role="button" tabindex="0" aria-label="Copy coupon code LUCKY100">
+          <small>Apply this coupon at checkout:</small><br>
+          <span class="coupon-text">LUCKY100</span>
+          <i class="fas fa-copy" aria-hidden="true" style="margin-left:10px"></i>
+          <p id="copy-status" aria-live="polite"></p>
+        </div>
+        <!-- Replace the href with your Razorpay payment or checkout URL. -->
+        <a class="btn" href="#checkout" id="checkout">GET ACCESS NOW</a>
+        <p class="secure-note"><i class="fas fa-shield-alt" aria-hidden="true"></i> Secure payment checkout</p>
+      </div>
+    </section>
+
+    <section class="features" aria-label="Product features">
+      <article class="f-item"><i class="fas fa-infinity" aria-hidden="true"></i><h3>Lifetime Access</h3><p>Pay once and use NetMirro Pro without monthly bills.</p></article>
+      <article class="f-item"><i class="fas fa-bolt" aria-hidden="true"></i><h3>4K UHD Streaming</h3><p>Enjoy cinema-quality visuals on supported devices and content.</p></article>
+      <article class="f-item"><i class="fas fa-ad" aria-hidden="true"></i><h3>Zero Ads</h3><p>Stay focused on your entertainment without interruptions.</p></article>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 NetMirro Digital. All rights reserved.<br>Terms and conditions apply.</footer>
+
+  <script>
+    const coupon = document.querySelector('#coupon');
+    const status = document.querySelector('#copy-status');
+    const code = 'LUCKY100';
+
+    async function copyCoupon() {
+      try {
+        await navigator.clipboard.writeText(code);
+        status.textContent = 'Coupon copied!';
+      } catch {
+        status.textContent = 'Copy failed — please select LUCKY100 manually.';
+      }
+    }
+
+    coupon.addEventListener('click', copyCoupon);
+    coupon.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        copyCoupon();
+      }
+    });
+  </script>
+</body>
+</html>
